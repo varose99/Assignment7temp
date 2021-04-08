@@ -19,7 +19,8 @@ address <- "https://raw.githubusercontent.com/vrose99/Assignment7temp/main/shhs.
 raw_data <- read.csv(address)
 
 # linear regression
-linear_Model1 = lm(log(rdi4p + 1)~as.numeric(bmi), data = raw_data)
+bmi_points = raw_data %>% select(bmi) %>%  data.matrix()
+linear_Model1 = lm(log(rdi4p + 1)~bmi_points, data = raw_data)
 
 # Report the coefficients and a scatterplot with the fitted line.
 summary(linear_Model1)
@@ -27,7 +28,6 @@ summary(linear_Model1)
 ```
 ```{r}
 # scatterplot:
-bmi_points = raw_data %>% select(bmi) %>%  data.matrix()
 ggplot(raw_data, aes(x=bmi_points, y=log(1+ as.numeric(rdi4p))))+
   geom_point(size=2, shape=18, color="blue", alpha=0.4) + 
   geom_smooth(method = 'lm',color = 'red') # not sure if any of the flagged NA things are of significant note
@@ -51,15 +51,13 @@ summary(linear_Model2)
 ```{r}
 # Lasso (L1) Penalty
 
-# need to add penalty still
-
 x = raw_data %>% select(bmi, Waist, age, sex) %>%  data.matrix()
 class(x) <- "numeric"
 
 ## look at a prediction and classification tasks
 y = log(raw_data$rdi4p + 1)
 
-# fit lasso
+# fit lasso -> comes from alpha = 1 i think
 linear_Model3 = glmnet(x, y, alpha = 1)
 
 # Attach a plot of the coefficients as the L1 sum of the parameters varies.

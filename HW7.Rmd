@@ -6,6 +6,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(glmnet)
 ```
 
 ## R Questions
@@ -16,6 +18,53 @@ address <- "https://raw.githubusercontent.com/vrose99/Assignment7temp/main/shhs.
 raw_data <- read.csv(address)
 
 # linear regression
+# should this be lm(log(rdi4p + 1)~bmi+1
+linear_Model1 = lm(log(rdi4p + 1)~bmi, data = raw_data)
+
+# Report the coefficients and a scatterplot with the fitted line.
+# NEED TO REPORT THE COEFFICIENTS!!! from above model
+
+# scatterplot:
+ggplot(raw_data, aes(x=bmi, y=log(1+ rdi4p))) +
+  geom_point(size=2, shape=18, color="blue", alpha=0.4) + 
+  geom_smooth(method='lm', se = "FALSE") # for some reason it's not showing up well
+
+# need to predict for bmi of 30 (just math using number from above)
+# predict(linear_Model1, 30) # not actually this but similar
+
+# need to write little about mean and intercept of coefficients (can do this later)
+
 ```
+```{r}
+# Squared Error Loss
+linear_Model2 = lm(log(rdi4p + 1)~bmi + waist + age + sex, raw_data)
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

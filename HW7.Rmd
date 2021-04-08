@@ -76,6 +76,8 @@ summary(glm.fit)
 ```
 
 
+# colab notebook link:
+# https://colab.research.google.com/drive/1gPqVry3red4d5QEc4y4eC8ATFhXzApE6?usp=sharing
 
 
 
